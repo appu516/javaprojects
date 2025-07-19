@@ -1,6 +1,5 @@
 import turtle
 def draw_multicolor_square(animal,size):
-    """Make animal draw a multi-color square of given size."""
     for color in ["red","purple","hotpink","blue"]:
         animal.color(color)
         animal.forward(size)
