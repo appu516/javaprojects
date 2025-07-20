@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class PizzaOrder {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        System.out.print("Enter your name: ");
+        String name = in.nextLine();
+
+        System.out.print("Choose pizza size (S=Small $15, M=Medium $20, L=Large $25): ");
+        String size = in.nextLine().trim().toUpperCase();
+        double cost;
+        switch (size) {
+            case "S": cost = 15; break;
+            case "M": cost = 20; break;
+            case "L": cost = 25; break;
+            default:
+                System.out.println("Invalid size, defaulting to Medium.");
+                size = "M";
+                cost = 20;
+        }
+
+        System.out.print("Add pepperoni? (Y/N): ");
+        boolean pepperoni = in.nextLine().trim().equalsIgnoreCase("Y");
+        if (pepperoni) {
+            cost += (size.equals("S") ? 2 : 3);
+        }
+
+        System.out.print("Add extra cheese? (Y/N): ");
+        if (in.nextLine().trim().equalsIgnoreCase("Y")) {
+            cost += 1;
+        }
+
+        System.out.print("Delivery? (Y=Yes, N=Pickup): ");
+        boolean delivery = in.nextLine().trim().equalsIgnoreCase("Y");
+        double fee = delivery ? 5 : 0;
+
+        double subtotal = cost + fee;
+        double tax = subtotal * 0.08;   // 8% tax
+        double total = subtotal + tax;
+
+        System.out.println("\n--- ORDER SUMMARY ---");
+        System.out.println("Name: " + name);
+        System.out.println("Size: " + size);
+        System.out.printf("Pepperoni: %s\n", pepperoni ? "Yes" : "No");
+        System.out.printf("Extra cheese: %s\n", (cost - (pepperoni ? ((size.equals("S")) ? 2 : 3) : 0) - (delivery ? 5 : 0) - 20) == 1 ? "Yes" : "No");
+        System.out.printf("Delivery: %s\n", delivery ? "Yes" : "No");
+        System.out.printf("Subtotal: $%.2f\n", subtotal);
+        System.out.printf("Tax (8%%): $%.2f\n", tax);
+        System.out.printf("Total due: $%.2f\n", total);
+    }
+}
